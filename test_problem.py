@@ -68,6 +68,8 @@ def iterate_degrees(llist, degree, max_degree, all_leftovers):
 
 def test_iterate_degrees():
     assert iterate_degrees([273, 284, 277, 266, 341, 289, 345, 233], 10, 100, []) == ([1100], [345,233,630])
+    print( iterate_degrees(al, 10, 100, []))
+    assert iterate_degrees(al, 10, 100, []) == ([1100], [345,233,630]) == ([])
 
 def test_reduce_pairs():
     assert reduce_pairs([1234, 2346, 3333, 7777, 2832,2334], 10) == ([3580, 11110], [2832, 2334])
