@@ -1,10 +1,8 @@
 from functools import reduce
-import pytest
 import numpy as np
-import pdb
 
 dataset =[18897109, 12828837, 9661105, 6371773, 5965343, 5926800, 5582170, 5564635, 5268860, 4552402, 4335391, 4296250, 4224851, 4192887, 3439809, 3279933, 3095213, 2812896, 2783243, 2710489, 2543482, 2356285, 2226009, 2149127, 2142508, 2134411]
-y = 101000000
+required_total = 101000000
 
 def sumList(llist):
     return reduce(lambda x,y: x+y, llist)
@@ -12,9 +10,7 @@ def test_sumList():
     assert sumList([2,4,6,8]) == 20
 
 def subsetSum(array, total):
-    #create array with numbers of array down left and total in columns ie : [len(array) + 1][total + 1]
-    #set all row i col 0 to be T
-    #iterate through the rest of the rows, and columns
+# generate grid
     B = np.zeros((len(array), total+1), dtype=bool)
     B[:, 0]=True
     for i in range(len(array) ):
@@ -52,22 +48,22 @@ def test_SubsetSum():
     assert subsetSum([2,3,7,8,10], 15) == (True, [8,7])
     assert subsetSum([2,3,7,8,109], 15) == (True, [8,7])
 
-    sum_all = sumList(dataset[1:])
     ''' minor optimization for this dataset:
-        answer must contain 1st or 2cd element of array: the sum of dataset[2:] < required total
-        so can run subset sum without the first element, and attempt to find a solution(minus first element from required_total)
-        if solution is found, can add dataset[0] to found solution to get set that sums to required total
-        if a solution is not found, you can be sure the second element of the array is part of the subset,
-        and run the subsetSum() with for required_total - both first and second elements.
-        your final subset will include the second element of given array.
+        (1) answer must contain 1st or 2cd element of array because: the sum of dataset[2:] < required total
+        so can run subset sum without the first element, and attempt to find a solution (required_total = required_total - first element)
+        if solution is found, can add dataset[0] to found subset solution to get the set that sums to the required total
+
+        - if a solution set is not found, you can be sure the second element of the array is part of the subset, (due to (1))
+        can run the subsetSum() with required_total - both first and second elements.
+        add second element to final subset solution.
     '''
-    total = y-dataset[0]
+    total = required_total-dataset[0]
     has_subset, solution = subsetSum(dataset[1:], total)
-    if has_subset == True:
+    if has_subset:
         solution.append(dataset[0])
         print("the solution is: ", solution)
     else:
-        total = y-dataset[0]-dataset[1]
+        total = required_total-dataset[0]-dataset[1]
         has_subset, solution = subsetSum(dataset[2:], total)
         solution.append(dataset[1])
         print("the solution is: ", solution)
