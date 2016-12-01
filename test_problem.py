@@ -10,7 +10,7 @@ required_total = 101000000
         if solution is found, can add dataset[0] to found subset solution to get the set that sums to the required total
 
         - if a solution set is not found, you can be sure the second element of the array is part of the subset, (due to (1))
-        can run the subsetSum() with required_total - both first and second elements.
+        can run the subsetSum() with: (required_total - both first and second) elements.
         add second element to final subset solution.
     '''
 
