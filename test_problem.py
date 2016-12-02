@@ -14,10 +14,10 @@ required_total = 101000000
         add second element to final subset solution.
     '''
 
-def sumList(llist):
+def sum_of_list(llist):
     return reduce(lambda x,y: x+y, llist)
-def test_sumList():
-    assert sumList([2,4,6,8]) == 20
+def test_sum_of_list():
+    assert sum_of_list([2,4,6,8]) == 20
 
 def subsetSum(array, total):
 # generate grid
@@ -70,4 +70,5 @@ def test_SubsetSum():
         print("the solution is: ", solution)
 
     # solution=  [18897109, 2134411, 2142508, 2149127, 2226009, 2543482, 2710489, 2812896, 3095213, 3279933, 4224851, 4296250, 4552402, 5564635, 5582170, 5926800, 6371773, 9661105, 12828837]
-    print("final solution sum: ", sumList(solution))
+    assert sum_of_list(solution) == required_total
+    print("final solution sum: ", sum_of_list(solution))
